@@ -90,6 +90,7 @@ $(GOARCH)/asm.h: mkasmh.sh runtime.acid.$(GOARCH)
 
 cgo2c: cgo2c.c
 	quietgcc -o $@ $<
+	chmod 777 *.exe
 
 %.c:	%.cgo cgo2c
 	./cgo2c $< > $@.tmp
