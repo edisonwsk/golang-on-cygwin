@@ -47,7 +47,7 @@ OFILES=\
 	5obj.$O\
 	6obj.$O\
 	8obj.$O \
-	linux.$O
+	cygwin.$O
 #	/bin/cygwin1.dll
 #	$(shell uname | tr A-Z a-z).$O
 
