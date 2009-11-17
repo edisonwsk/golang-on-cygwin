@@ -1,0 +1,100 @@
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+
+{.section PDoc}
+	<!-- PackageName is printed as title by the top-level template -->
+	{.section IsPkg}
+		<p><code>import "{ImportPath|html}"</code></p>
+	{.end}
+	{Doc|html-comment}
+	{.section IsPkg}
+		{.section Filenames}
+			<p>
+			<h4>Package files</h4>
+			<span style="font-size:90%">
+			{.repeated section @}
+				<a href="/{FilePath|html}/{@|html}">{@|html}</a>
+			{.end}
+			</span>
+			</p>
+		{.end}
+	{.end}
+	{.section Consts}
+		<h2>Constants</h2>
+		{.repeated section @}
+			{Doc|html-comment}
+			<pre>{Decl|html}</pre>
+		{.end}
+	{.end}
+	{.section Vars}
+		<h2>Variables</h2>
+		{.repeated section @}
+			{Doc|html-comment}
+			<pre>{Decl|html}</pre>
+		{.end}
+	{.end}
+	{.section Funcs}
+		{.repeated section @}
+			<h2>func <a href="{Decl|link}">{Name|html}</a></h2>
+			<p><code>{Decl|html}</code></p>
+			{Doc|html-comment}
+		{.end}
+	{.end}
+	{.section Types}
+		{.repeated section @}
+			<h2>type <a href="{Decl|link}">{Type.Name|html}</a></h2>
+			{Doc|html-comment}
+			<p><pre>{Decl|html}</pre></p>
+			{.repeated section Consts}
+				{Doc|html-comment}
+				<pre>{Decl|html}</pre>
+			{.end}
+			{.repeated section Vars}
+				{Doc|html-comment}
+				<pre>{Decl|html}</pre>
+			{.end}
+			{.repeated section Factories}
+				<h3>func <a href="{Decl|link}">{Name|html}</a></h3>
+				<p><code>{Decl|html}</code></p>
+				{Doc|html-comment}
+			{.end}
+			{.repeated section Methods}
+				<h3>func ({Recv|html}) <a href="{Decl|link}">{Name|html}</a></h3>
+				<p><code>{Decl|html}</code></p>
+				{Doc|html-comment}
+			{.end}
+		{.end}
+	{.end}
+	{.section Bugs}
+		<h2>Bugs</h2>
+		{.repeated section @}
+		{@|html-comment}
+		{.end}
+	{.end}
+{.end}
+{.section Dirs}
+	<h2>Subdirectories</h2>
+	<p>
+	<table class="layout">
+	<tr>
+	<th align="left" colspan="{MaxHeight|html}">Name</th>
+	<td width="25">&nbsp;</td>
+	<th align="left">Synopsis</th>
+	</tr>
+	<tr>
+	<th align="left"><a href="..">..<a></th>
+	</tr>
+	{.repeated section List}
+		<tr>
+		{Depth|padding}
+		<td align="left" colspan="{Height|html}"><a href="{Path|html}">{Name|html}<a></td>
+		<td></td>
+		<td align="left">{Synopsis|html}</td>
+		</tr>
+	{.end}
+	</table>
+	</p>
+{.end}

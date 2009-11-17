@@ -1,0 +1,40 @@
+#!/bin/sh
+# Copyright 2009 The Go Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+set -e
+
+. $GOROOT/src/Make.$GOARCH
+if [ -z "$GC" ]; then
+	echo 'missing $GC - maybe no Make.$GOARCH?' 1>&2
+	exit 1
+fi
+
+gcc -o mkbuiltin1 mkbuiltin1.c
+rm -f _builtin.c
+for i in runtime unsafe
+do
+	$GC -A $i.go
+	O=$O ./mkbuiltin1 $i >>_builtin.c
+done
+
+# If _builtin.c has changed vs builtin.c.boot,
+# check in the new change if being run by
+# one of the people who tends to work on
+# the compiler.  This makes sure that changes
+# don't get forgotten, without causing problems
+# in end user Go repositories.
+case "$USER" in
+ken | r | rsc)
+	if ! cmp _builtin.c builtin.c.boot >/dev/null 2>/dev/null
+	then
+		PATH=$PATH:/usr/local/bin	# find p4 on OS X
+		p4 open builtin.c.boot >/dev/null 2>/dev/null || true	# if p4 is missing, so be it
+		cp _builtin.c builtin.c.boot
+	fi
+esac
+
+cat _builtin.c
+rm -f _builtin.c
+
