@@ -61,7 +61,7 @@ builtin.c:	runtime.go unsafe.go mkbuiltin1.c mkbuiltin
 subr.$O: opnames.h
 
 opnames.h:	mkopnames go.h
-	./mkopnames go.h >opnames.h
+	./mkopnames go.h > opnames.h
 
 clean:
 	rm -f *.[568o] enam.c [568].out a.out y.tab.h y.tab.c $(LIB) mkbuiltin1 builtin.c _builtin.c

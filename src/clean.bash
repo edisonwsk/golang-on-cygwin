@@ -5,6 +5,7 @@
 
 rm -rf $GOROOT/pkg/${GOOS}_$GOARCH
 rm -f $GOROOT/lib/*.a
+rm -f $GOROOT/src/cmd/gc/opnames.h
 for i in lib9 libbio libcgo libmach cmd pkg \
 	../misc/cgo/gmp ../misc/cgo/stdio \
 	../test/bench
